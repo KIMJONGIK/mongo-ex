@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "jslint": "^0.12.1",
     "mongodb": "^3.6.2"
   },
   "devDependencies": {},
