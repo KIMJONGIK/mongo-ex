@@ -97,6 +97,7 @@ function testFindByCondition(projection, condition){
     })
 };
 //  projection 객체 1이면 표시, 0이면 표시하지 않음
+/*
 testFindByCondition({ name: 1, age: 1, species: 1 },
                     {
                         $and:[
@@ -104,7 +105,7 @@ testFindByCondition({ name: 1, age: 1, species: 1 },
                             {age: { $lte: 50}}
                         ]
                     });
-
+*/
 
 
    
