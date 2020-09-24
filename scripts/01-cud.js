@@ -19,7 +19,7 @@ function testConnect() {
         }
     })
 }
-// testConnect();
+testConnect();
 
 //  insertOne, insertMany
 function testInsertDocument(docs){
@@ -57,14 +57,14 @@ function testInsertDocument(docs){
     }
 }
 // testInsertDocument( { name: "전우치", job: "도사" });
-testInsertDocument([
-    {name : "고길동", gender: "남성", species: "인간", age: 50},
-    {name : "둘리", gender: "남성", species: "공룡", age: 100000000},
-    {name : "도우너", gender: "남성", species: "외계인", age: 15},
-    {name : "또치", gender: "여성", species: "조류", age: 13},
-    {name : "마이콜", gender: "남성", species: "인간", age: 25},
-    {name : "봉미선", gender: "여성", species: "인간", age: 35}
-]); //  문서의 배열 -> insertMany
+// testInsertDocument([
+//     {name : "고길동", gender: "남성", species: "인간", age: 50},
+//     {name : "둘리", gender: "남성", species: "공룡", age: 100000000},
+//     {name : "도우너", gender: "남성", species: "외계인", age: 15},
+//     {name : "또치", gender: "여성", species: "조류", age: 13},
+//     {name : "마이콜", gender: "남성", species: "인간", age: 25},
+//     {name : "봉미선", gender: "여성", species: "인간", age: 35}
+// ]); //  문서의 배열 -> insertMany
 
 function testDeleteAll(){
     // db.collection.delete() : 전체 삭제
@@ -72,7 +72,7 @@ function testDeleteAll(){
     // Promise 방식
     client.connect().then(client => {
         const db = client.db("mydb");
-        db.collection('friends').deleteMany({})
+        db.collection('friends').deleteMany({}) //  삭제 조건 객체
         .then(result => {
             console.log(result.deletedCount, "개의 문서가 삭제");
         })
@@ -83,3 +83,23 @@ function testDeleteAll(){
 // testDeleteAll();
 
 
+//  Update
+//  SQL : UPDATE table SET col=val, col=val
+//  db.collection.update( {조건 객체}, { $set:{변경할 내용} })
+function testUpdate(condition, doc){
+    client.connect().then(client => {
+        const db = client.db("mydb");
+
+        db.collection("friends")
+            .updateMany(condition, { $set: doc}).then(result => {
+                console.log(result);
+                console.log(result.result.nModified,
+                    "개의 문서가 업데이트 ");
+            });
+    })
+};
+
+// testUpdate(
+//     { name: "마이콜" }, //  조건 name = "마이콜"
+//     { job: "무직" }   //  변경할 문서의 내용
+// )
